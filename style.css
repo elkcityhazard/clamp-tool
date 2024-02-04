@@ -70,6 +70,17 @@ dialog::content {
   padding: 1rem;
 }
 
+dialog > button {
+  cursor: pointer;
+  min-width: 4vw;
+  margin: 1rem auto;
+}
+
+dialog > button:hover {
+  background: var(--hunyadi-yellow);
+  color: var(--chocolate-cosmos);
+}
+
 .main-header {
   margin-bottom: 1rem;
   padding-top: 1rem;
@@ -123,11 +134,11 @@ section.output {
 }
 
 .output-container button {
-  background: var(--hunyadi-yellow);
+  background: var(--white);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border: 1px solid var(--chocolate-cosmos);
-  color: var(--white);
+  color: var(--black);
   cursor: pointer;
   display: inline-block;
   margin-left: auto;
@@ -140,7 +151,7 @@ section.output {
 .output-container button:hover,
 .output-container button:active,
 .output-container button:focus {
-  background: var(--white);
+  background: var(--hunyadi-yellow);
   color: var(--chocolate-cosmos);
 }
 
