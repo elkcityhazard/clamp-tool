@@ -1,6 +1,23 @@
 "use strict"
 
 class ClampTool {
+    /**
+     * Constructor function for initializing various elements and values.
+     *
+     * @param {string} minFontSize - The id of the minimum font size element
+     * @param {string} maxFontSize - The id of the maximum font size element
+     * @param {string} minViewPort - The id of the minimum viewport element
+     * @param {string} maxViewPort - The id of the maximum viewport element
+     * @param {string} targetFontUnit - The id of the target font unit element
+     * @param {string} targetVwUnit - The id of the target viewport unit element
+     * @param {string} clampResult - The id of the clamp result element
+     * @param {string} fontSizeResult - The id of the font size result element
+     * @param {string} clampExample - The id of the clamp example element
+     * @param {string} remBaseUnit - The id of the rem base unit element
+     * @param {string} clampCopyID - The id of the clamp copy element
+     * @param {string} fontsizeCopyID - The id of the font size copy element
+     * @param {string} dialogID - The id of the dialog element
+     */
     constructor(minFontSize, 
                 maxFontSize, 
                 minViewPort, 
@@ -52,6 +69,9 @@ class ClampTool {
                 window.addEventListener('DOMContentLoaded', this.events.bind(this))
                 }
 
+                /**
+                 * Listens to various events and handles them accordingly.
+                 */
                 events() {
 
                     this.minFontSize.addEventListener('change', this.handleMinFontSizeChange.bind(this))
@@ -73,6 +93,12 @@ class ClampTool {
 
                 }
 
+                /**
+                 * openDialog function opens a dialog and adds event listeners to close the dialog when clicking outside or on the close button.
+                 *
+                 * @param {Event} e - the event object
+                 * @return {void} 
+                 */
                 openDialog(e) {
 
                     this.dialogID.showModal()
@@ -93,16 +119,30 @@ class ClampTool {
 
                 }
 
+                /**
+                 * Closes the dialog.
+                 */
                 closeDialog() {
                   this.dialogID.close()
                 }
 
+                /**
+                 * Update the dialog text.
+                 *
+                 * @param {type} text - description of parameter
+                 * @return {type} 
+                 */
                 updateDialogText(text) {
 
                     this.dialogID.querySelector('#dialogText').innerText = this.clampResult.innerText + text
                 }
 
 
+                /**
+                 * A function to copy the given text to the clipboard.
+                 *
+                 * @param {string} text - the text to be copied to the clipboard
+                 */
                 async copyTextToClipboard(text) {
                   try {
                     await navigator.clipboard.writeText(text);
@@ -115,10 +155,16 @@ class ClampTool {
                   }
                 }
 
+                /**
+                 * A description of the entire function.
+                 */
                 copyClampValue() {
                     this.copyTextToClipboard(this.clampResult.innerText)
                 }
 
+                /**
+                 * Copies the font size value to the clipboard.
+                 */
                 copyFontSizeValue() {
                     this.copyTextToClipboard(this.fontSizeResult.innerText)
                 }
