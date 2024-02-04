@@ -11,6 +11,9 @@ export default class ClampTool {
                 fontSizeResult,
                 clampExample,
                 remBaseUnit,
+                clampCopyID,
+                fontsizeCopyID,
+                dialogID,
                 ) {
                 // constructors
                 this.minFontSize = document.getElementById(minFontSize)
@@ -23,6 +26,11 @@ export default class ClampTool {
                 this.fontSizeResult = document.getElementById(fontSizeResult)
                 this.clampExample = document.getElementById(clampExample)
                 this.remBaseUnit = document.getElementById(remBaseUnit)
+                this.clampCopyID = document.getElementById(clampCopyID)
+                this.fontsizeCopyID = document.getElementById(fontsizeCopyID)
+                this.dialogID = document.getElementById(dialogID)
+                this.dialogCloseBtn = this.dialogID.querySelector('#closeDialog')
+
 
                 // values
                 this.baseFontSizeValue = this.getBaseFontSize()
@@ -44,8 +52,7 @@ export default class ClampTool {
 
 
 
-                // formula calcs
-                this.events()
+                window.addEventListener('DOMContentLoaded', this.events.bind(this))
 
 
                 
@@ -61,9 +68,65 @@ export default class ClampTool {
                     this.targetVwUnit.addEventListener('click', this.handleTargetViewportUnitChange.bind(this))
                     this.form.addEventListener('submit', function(e){e.preventDefault()}.bind(this))
                     this.remBaseUnit.addEventListener('change', this.handleBaseUnitChange.bind(this))
+                    this.clampCopyID.addEventListener('click', this.copyClampValue.bind(this))
+                    this.fontsizeCopyID.addEventListener('click', this.copyFontSizeValue.bind(this))
+                    this.dialogID.addEventListener('click', this.openDialog.bind(this))
+                    this.dialogCloseBtn.addEventListener('click', this.closeDialog.bind(this))
+                    this.dialogID.close()
+                  
 
                     this.update()
 
+                }
+
+                openDialog(e) {
+
+                    this.dialogID.showModal()
+                    window.addEventListener('click', function(e) {
+                   
+                     if (e.target == this.dialogID) {
+                        this.closeDialog()
+                        e.target.blur()
+
+                     }
+                     if (e.target == this.dialogCloseBtn) {
+                        this.closeDialog()
+                        e.target.blur()
+                     }
+
+                    
+                   }.bind(this));
+
+                }
+
+                closeDialog() {
+                  this.dialogID.close()
+                }
+
+                updateDialogText(text) {
+
+                    this.dialogID.querySelector('#dialogText').innerText = this.clampResult.innerText + text
+                }
+
+
+                async copyTextToClipboard(text) {
+                  try {
+                    await navigator.clipboard.writeText(text);
+                    this.openDialog()
+                    this.updateDialogText("has been copied to clipboard!")
+                    
+                  } catch (err) {
+                    this.openDialog()
+                    this.updateDialogText("failed to copy the code.")
+                  }
+                }
+
+                copyClampValue() {
+                    this.copyTextToClipboard(this.clampResult.innerText)
+                }
+
+                copyFontSizeValue() {
+                    this.copyTextToClipboard(this.fontSizeResult.innerText)
                 }
 
                 handleTargetFontValueChange(e){
