@@ -42,6 +42,7 @@ body {
 
 .wrapper {
     margin: 0 auto;
+    padding: 0 1%;
 }
 
 .main-header {
@@ -148,3 +149,30 @@ input:focus-within {
     color: var(--chocolate-cosmos);
     outline: 3px solid var(--dark-slate-gray);
 }
+
+#clampExample {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+
+.loader {
+    aspect-ratio: 1/1;
+    border: 5px solid #f3f3f3; /* Light grey background */
+    border-top: 5px solid #3498db; /* Blue color */
+    border-radius: 50%;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    animation: spin 2s linear infinite;
+    text-align: center;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

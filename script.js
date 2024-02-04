@@ -36,6 +36,8 @@ export default class ClampTool {
                 this.preferredValue = null
                 this.cssClampValue = null
                 this.apiEndpoint = 'https://api.chucknorris.io/jokes/random'
+                this.loader = document.querySelector('.loader')
+                this.form = document.forms[0]
 
 
 
@@ -54,6 +56,7 @@ export default class ClampTool {
                     this.maxViewPort.addEventListener('change', this.handleMaxViewPortChange.bind(this))
                     this.targetFontUnit.addEventListener('click', this.handleTargetFontValueChange.bind(this))
                     this.targetVwUnit.addEventListener('click', this.handleTargetViewportUnitChange.bind(this))
+                    this.form.addEventListener('submit', function(e){e.preventDefault()}.bind(this))
 
                     this.update()
 
@@ -111,25 +114,17 @@ export default class ClampTool {
 
                 }
 
-                handleMinAndMaxViewPortUnitValueChange(type) {
-                  switch (type) {
-                    case "rem":
+                handleMinAndMaxViewPortUnitValueChange(e) {
 
-                    this.minViewPort.value = this.convertPxToRem(this.minViewPortValue)
-                    this.maxViewPort.value = this.convertPxToRem(this.maxViewPortValue)
-
-                    break;
-                    case "px":
-
-
-                    this.minViewPort.value = this.minViewPortValue
-                    this.maxViewPort.value =  this.maxViewPortValue
-
-                    
-                    break
-                    default:
+                  function setDataSet(id, value) {
+                     document.querySelectorAll(`input[data-${id}]`).forEach(el => {
+                        el.dataset.fontUnit = value
+                     })
 
                   }
+
+                  e.target.checked ? setDataSet('viewportUnit', 'rem') : setDataSet('viewportUnit', 'px')
+                  
                     
                 }
 
@@ -177,14 +172,15 @@ export default class ClampTool {
                  }
 
                  handleMinViewPortChange(e) {
+                  console.log(e.target.dataset.viewportUnit)
+
+                    e.target.dataset.viewportUnit === "rem" ? 
+                    this.minViewPortValue = +this.convertRemToPx(e.target.value) : 
+                    this.minViewPortValue = +e.target.value
+
+                    this.minViewPort.value = this.minViewPortValue
                     
 
-                    if (this.targetVwUnitValue = 'rem') {
-                     this.minViewPortValue = +this.convertRemToPx(e.target.value)
-                    } else {
-                     this.minViewPortValue = +e.target.value
-                    }
-                    
                     
                     this.update()
                     this.print()
@@ -192,11 +188,13 @@ export default class ClampTool {
                  }
 
                  handleMaxViewPortChange(e) {
-                    if (this.targetVwUnitValue = 'rem') {
-                     this.maxViewPortValue = +this.convertRemToPx(e.target.value)
-                    } else {
+                     e.target.dataset.viewportUnit === "rem" ?
+                     this.maxViewPortValue = +this.convertRemToPx(e.target.value) :
                      this.maxViewPortValue = +e.target.value
-                    }
+
+                     this.maxViewPort.value = this.maxViewPortValue
+
+                    
                    
                     
                     this.update()
@@ -279,13 +277,20 @@ export default class ClampTool {
                  fetchJoke() {
                   const xhr = new XMLHttpRequest()
 
+                  this.clampExample.childNodes.forEach(el => {
+                     this.clampExample.removeChild(el)
+                  })
+                  this.clampExample.appendChild(this.loader)
+                  
                   xhr.open('GET', this.apiEndpoint)
 
                   xhr.onreadystatechange = () => {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                       if (xhr.status === 200) {
                         const data = JSON.parse(xhr.responseText)
-                        this.clampExample.innerText = data?.value
+                        const textNode = document.createTextNode(data?.value)
+                        this.clampExample.removeChild(this.loader)
+                        this.clampExample.appendChild(textNode)
                       }
                     }
                   }
