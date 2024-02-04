@@ -13,5 +13,6 @@ The difference with mine is that I made it, but I must provide credit where cred
 ## Libraries Used
 - [jest](https://jestjs.io/)
 - [jest-environment-jsdom](https://github.com/testing-library/jest-environment-jsdom)
+- [babel](https://babeljs.io/)
 ## TODOS
 - Add Testing
