@@ -35,6 +35,7 @@ export default class ClampTool {
                 this.yAxisIntersection = 0
                 this.preferredValue = null
                 this.cssClampValue = null
+                this.apiEndpoint = 'https://api.chucknorris.io/jokes/random'
 
 
 
@@ -54,9 +55,23 @@ export default class ClampTool {
                     this.targetFontUnit.addEventListener('click', this.handleTargetFontValueChange.bind(this))
                     this.targetVwUnit.addEventListener('click', this.handleTargetViewportUnitChange.bind(this))
 
+                    this.update()
+
                 }
 
                 handleTargetFontValueChange(e) {
+
+                  function setDataSet(id, value) {
+                     document.querySelectorAll(`input[data-${id}]`).forEach(el => {
+                        el.dataset.fontUnit = value
+                        console.log(el.dataset.fontUnit)
+                     })
+
+                  }
+
+                  e.target.checked ? setDataSet('font-unit', 'rem') : setDataSet('font-unit', 'px')
+
+                 
 
                    e.target.checked ? this.targetFontUnitValue = 'rem' : this.targetFontUnitValue = 'px'
 
@@ -132,24 +147,28 @@ export default class ClampTool {
 
                 handleMinFontSizeChange(e) {
 
-                  console.log("target value", this.targetVwUnitValue)
+                  if (e.target.dataset.fontUnit === 'px') {
+                    this.minFontSizeValue = +e.target.value
+                  }
 
-                  if (this.targetFontUnitValue === 'rem') {
-                     console.log("rem change", this.convertRemToPx(e.target.value))
-                     this.minFontSizeValue = +this.convertRemToPx(e.target.value);
-                 } else {
-                     this.minFontSizeValue = +e.target.value;
-                 }
+                  if (e.target.dataset.fontUnit === 'rem') {
+                    this.minFontSizeValue = this.convertRemToPx(e.target.value)
+                  }
+
+                 
                     this.update()
                     this.print()
                 }
 
                 handleMaxFontSizeChange(e) {
-                    if (this.targetFontUnitValue = 'rem') {
-                     this.maxFontSizeValue = +this.convertRemToPx(e.target.value) 
-                    } else {
-                     this.maxFontSizeValue = +e.target.value
-                    }
+                     
+                  if (e.target.dataset.fontUnit === 'px') {
+                    this.maxFontSizeValue = +e.target.value
+                  }
+
+                  if (e.target.dataset.fontUnit === 'rem') {
+                    this.maxFontSizeValue = this.convertRemToPx(e.target.value)
+                  }
                    
                     
                     this.update()
@@ -188,8 +207,8 @@ export default class ClampTool {
                     // this is coming from the stylesheet :root var --base-font-size
                     const computedStyle = window.getComputedStyle(document.body)
                     const baseFontSize = computedStyle.getPropertyValue('--base-font-size')
-                    let abstractBaseFontSize = parseInt(baseFontSize.split('px')[0])
-                    return abstractBaseFontSize
+                    let getBaseFontSize = parseInt(baseFontSize.split('px')[0])
+                    return getBaseFontSize
                  }
 
                  convertRemToPx(remValue) {
@@ -228,7 +247,7 @@ export default class ClampTool {
                     console.log("valuies",this.yAxisIntersection, this.slope)
                     
                    
-                    let preferredValue = this.yAxisIntersection+'rem' + ' + ' + (this.slope*100)+'vw'
+                    let preferredValue = parseFloat(this.yAxisIntersection).toFixed(4)+'rem' + ' + ' + parseFloat((this.slope*100)).toFixed(4)+'vw'
                    
                     this.preferredValue = preferredValue
                  }
@@ -238,8 +257,8 @@ export default class ClampTool {
                     this.calculateYAxis()
                     this.calculatePreferredValue()
                     
-                    let minFont = this.convertPxToRem(this.minFontSizeValue)
-                    let maxFont = this.convertPxToRem(this.maxFontSizeValue) 
+                    let minFont = this.convertPxToRem(this.minFontSizeValue) % 2 !== 0 ? parseFloat(this.convertPxToRem(this.minFontSizeValue)).toFixed(4) : this.convertPxToRem(this.minFontSizeValue)
+                    let maxFont = parseFloat(this.convertPxToRem(this.maxFontSizeValue)).toFixed(4)
                     this.cssClampValue = 'clamp('+minFont+'rem, '+this.preferredValue+', '+maxFont+'rem)'
                    
                  }
@@ -247,8 +266,31 @@ export default class ClampTool {
                  displayClampValue() {
                     this.clampResult.innerText = this.cssClampValue
 
+                    this.fontSizeResult.innerText = `font-size: ${this.cssClampValue};`
+
                     this.clampExample.style.fontSize = this.cssClampValue
-                    this.clampExample.innerText = this.cssClampValue
+
+                    this.fetchJoke()
+
+
+                    
+                 }
+
+                 fetchJoke() {
+                  const xhr = new XMLHttpRequest()
+
+                  xhr.open('GET', this.apiEndpoint)
+
+                  xhr.onreadystatechange = () => {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                      if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText)
+                        this.clampExample.innerText = data?.value
+                      }
+                    }
+                  }
+
+                  xhr.send()
                  }
 
 

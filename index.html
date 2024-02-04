@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a href="#mainContent" aria-label="skip to content link" class="skip-link">skip to content</a>
     <div class="wrapper">
       <!-- header -->
       <header class="main-header"></header>
       <!--/header -->
       <!-- main-content -->
       <div class="container">
-        <main class="main-content">
+        <main id="mainContent" class="main-content">
           <form id="clampTool" class="clamp-tool">
             <section class="clamp-tool__settings">
               <div class="row">
@@ -37,6 +38,7 @@
                       <label for="minFont">
                         <strong>Min Font Size: <span class="css-unit">px</span></strong>
                         <input
+                          data-font-unit="px"
                           id="minFont"
                           type="number"
                           name="minFont"
@@ -49,6 +51,7 @@
                       <label for="maxFont">
                         <strong>Max Font Size: <span class="css-unit">px</span></strong>
                         <input
+                          data-font-unit="px"
                           id="maxFont"
                           type="number"
                           name="maxFont"
@@ -71,6 +74,7 @@
                     <label for="minViewportWidth">
                       <strong>Min Viewport Width: <span class="vw-unit">px</span></strong>
                       <input
+                        data-viewport-unit="px"
                         id="minViewPortWidth"
                         type="number"
                         name="minViewportWidth"
@@ -83,6 +87,7 @@
                     <label for="maxViewportWidth">
                       <strong>Max Viewport Width: <span class="vw-unit">px</span></strong>
                       <input
+                      data-viewport-unit=""px"
                         id="maxViewPortWidth"
                         type="number"
                         name="maxViewportWidth"

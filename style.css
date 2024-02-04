@@ -26,6 +26,20 @@ body {
     font-size: var(--base-font-size);
 }
 
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+
 .wrapper {
     margin: 0 auto;
 }
@@ -49,8 +63,88 @@ body {
 .container .row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    place-items: center;
 }
 
 .container .row .column {
     max-width: 50%;
+}
+
+
+.output-container {
+    background: var(--chocolate-cosmos);
+    border-radius: 2rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0.334rem auto;
+    padding-left: 1rem;
+}
+
+.output-container code {
+    position: relative;
+    vertical-align: center;
+    
+}
+
+.output-container button {
+    background: var(--vanilla);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 1px solid var(--chocolate-cosmos);
+    color: var(--dark-slate-gray);
+    cursor: pointer;
+    display: inline-block;
+    margin-left:auto;
+    margin-right: -1px;
+    /* height: calc(fit-content - 2px); */
+}
+
+.output-container button:hover,
+.output-container button:active,
+.output-container button:focus {
+    background: var(--white);
+    color: var(--chocolate-cosmos);
+}
+
+
+
+
+
+
+
+strong {
+    display: inline-block;
+    font-size: clamp(0.6667rem, 0.5714rem + 0.5357vw, 1.0000rem);
+    margin-bottom: 0.1rem;
+}
+
+input,
+label {
+    max-width: 100%;
+}
+
+input,
+button {
+    background: var(--chocolate-cosmos);
+    border: none;
+    border-radius: 2rem;
+    color: var(--white);
+    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+    font-weight: 900;
+    font-size: var(--base-font-size);
+    padding: 0.334rem;
+    outline: 3px solid transparent;
+    -webkit-transition: all 250ms ease;
+    -moz-transition: all 250ms ease;
+    transition: all 250ms ease;
+}
+
+input:focus,
+input:active,
+input:focus-within {
+    background: var(--white);
+    color: var(--chocolate-cosmos);
+    outline: 3px solid var(--dark-slate-gray);
 }
