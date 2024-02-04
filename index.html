@@ -15,7 +15,10 @@
     <a href="#mainContent" aria-label="skip to content link" class="skip-link">skip to content</a>
     <div class="wrapper">
       <!-- header -->
-      <header class="main-header"></header>
+      <header class="main-header">
+        <h1>CSS Clamp Tool</h1>
+        <p>By Andrew McCall</p>
+      </header>
       <!--/header -->
       <!-- main-content -->
       <div class="container">
@@ -26,7 +29,7 @@
                 <div class="column">
                   <div class="clamp-tool__form-control">
                     <div class="meta-label">
-                      <strong>REM Base Unit</strong>
+                      <strong>REM Size (px)</strong>
                       <label for="RemBaseUnit">
                       <input type="number" name="RemBaseUnit" id="RemBaseUnit" min="0" max="100" value="16" />
                       </label>
@@ -80,7 +83,7 @@
                   </div>
                   <div class="clamp-tool__form-control">
                     <label for="minViewportWidth">
-                      <strong>Min Viewport Width: <span class="vw-unit">px</span></strong>
+                      <strong>Min VW <span class="vw-unit">px</span></strong>
                       <input
                         data-viewport-unit="px"
                         id="minViewPortWidth"
@@ -94,7 +97,7 @@
                   </div>
                   <div class="clamp-tool__form-control">
                     <label for="maxViewportWidth">
-                      <strong>Max Viewport Width: <span class="vw-unit">px</span></strong>
+                      <strong>Max VW: <span class="vw-unit">px</span></strong>
                       <input
                       data-viewport-unit="px"
                         id="maxViewPortWidth"
