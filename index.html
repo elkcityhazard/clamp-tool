@@ -26,10 +26,18 @@
                 <div class="column">
                   <div class="clamp-tool__form-control">
                     <div class="meta-label">
-                      <strong>TargetValues</strong>
+                      <strong>REM Base Unit</strong>
+                      <label for="RemBaseUnit">
+                      <input type="number" name="RemBaseUnit" id="RemBaseUnit" min="0" max="100" value="16" />
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clamp-tool__form-control">
+                    <div class="meta-label">
+                      <strong>CSS Unit</strong>
                       <label for="fontUnitSelector">
                       <input type="checkbox" name="fontUnitSelector" id="fontUnitSelector">
-                      <span>px | rem</span>
+                      <span>px</span>
                       </label>
                     </div>
                   </div>
@@ -64,10 +72,10 @@
               </div>
                 <div class="column">
                   <div class="clamp-tool__form-control">
-                    <strong>Viewport Range</strong>
+                    <strong>CSS Unit</strong>
                     <label for="vwUnitSelector">
                       <input type="checkbox" name="vwUnit" id="vwUnitSelector">
-                    <span>px | rem</span>
+                    <span>px</span>
                     </label>
                   </div>
                   <div class="clamp-tool__form-control">
@@ -80,6 +88,7 @@
                         name="minViewportWidth"
                         value="360"
                         min="0"
+                        step="1"
                       />
                     </label>
                   </div>
@@ -87,12 +96,13 @@
                     <label for="maxViewportWidth">
                       <strong>Max Viewport Width: <span class="vw-unit">px</span></strong>
                       <input
-                      data-viewport-unit=""px"
+                      data-viewport-unit="px"
                         id="maxViewPortWidth"
                         type="number"
                         name="maxViewportWidth"
                         value="840"
                         min="0"
+                        step="1"
                       />
                     </label>
                   </div>
@@ -112,7 +122,6 @@
               <h2>Example Output</h2>
               <div class="output-container">
                 <div id="clampExample">
-                  <div class="loader"></div>
                 </div>
               </div>
             </section>
