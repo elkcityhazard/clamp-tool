@@ -127,7 +127,7 @@ section.output {
 }
 
 .output-container code {
-  font-size: clamp(0.75rem, 0.1875rem + 2.8125vw, 1rem);
+  font-size: clamp(0.75rem, 0.1875rem + 2.8125vw, 1.25rem);
   padding: 3px;
   position: relative;
   vertical-align: center;
