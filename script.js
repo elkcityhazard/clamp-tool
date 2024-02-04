@@ -1,6 +1,6 @@
 "use strict"
 
-export default class ClampTool {
+class ClampTool {
     constructor(minFontSize, 
                 maxFontSize, 
                 minViewPort, 
@@ -49,13 +49,7 @@ export default class ClampTool {
                 this.apiEndpoint = 'https://api.chucknorris.io/jokes/random'
                 this.loader = document.querySelector('.loader')
                 this.form = document.forms[0]
-
-
-
                 window.addEventListener('DOMContentLoaded', this.events.bind(this))
-
-
-                
                 }
 
                 events() {
@@ -401,4 +395,16 @@ export default class ClampTool {
 
 
 }
+
+
+export default ClampTool
+
+
+
+
+
+
+
+   
+    
        
