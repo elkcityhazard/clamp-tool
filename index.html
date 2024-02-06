@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <a href="#mainContent" aria-label="skip to content link" class="skip-link">skip to content</a>
+    <a href="#mainContent" aria-label="skip to content link" class="skip-link"
+      >skip to content</a
+    >
     <div class="wrapper">
       <!-- Dialog -->
       <dialog id="dialogMsg">
@@ -36,25 +38,39 @@
                 <div class="column">
                   <div class="clamp-tool__form-control">
                     <div class="meta-label">
-                      <strong>REM Size (px)</strong>
-                      <label for="RemBaseUnit">
-                      <input type="number" name="RemBaseUnit" id="RemBaseUnit" min="0" max="100" value="18" />
+                      <strong>CSS Unit</strong>
+                      <label for="fontUnitSelector">
+                        <input
+                          type="checkbox"
+                          name="fontUnitSelector"
+                          id="fontUnitSelector"
+                        />
+                        <span>px</span>
                       </label>
                     </div>
                   </div>
                   <div class="clamp-tool__form-control">
                     <div class="meta-label">
-                      <strong>CSS Unit</strong>
-                      <label for="fontUnitSelector">
-                      <input type="checkbox" name="fontUnitSelector" id="fontUnitSelector">
-                      <span>px</span>
+                      <strong>REM Size (px)</strong>
+                      <label for="RemBaseUnit">
+                        <input
+                          type="number"
+                          name="RemBaseUnit"
+                          id="RemBaseUnit"
+                          min="0"
+                          max="100"
+                          value="18"
+                        />
                       </label>
                     </div>
                   </div>
                   <div class="clamp-tool__column">
                     <div class="clamp-tool__form-control">
                       <label for="minFont">
-                        <strong>Min Font Size: <span class="css-unit">px</span></strong>
+                        <strong
+                          >Min Font Size:
+                          <span class="css-unit">px</span></strong
+                        >
                         <input
                           data-font-unit="px"
                           id="minFont"
@@ -67,7 +83,10 @@
                     </div>
                     <div class="clamp-tool__form-control">
                       <label for="maxFont">
-                        <strong>Max Font Size: <span class="css-unit">px</span></strong>
+                        <strong
+                          >Max Font Size:
+                          <span class="css-unit">px</span></strong
+                        >
                         <input
                           data-font-unit="px"
                           id="maxFont"
@@ -78,14 +97,18 @@
                         />
                       </label>
                     </div>
+                  </div>
                 </div>
-              </div>
                 <div class="column">
                   <div class="clamp-tool__form-control">
                     <strong>CSS Unit</strong>
                     <label for="vwUnitSelector">
-                      <input type="checkbox" name="vwUnit" id="vwUnitSelector">
-                    <span>px</span>
+                      <input
+                        type="checkbox"
+                        name="vwUnit"
+                        id="vwUnitSelector"
+                      />
+                      <span>px</span>
                     </label>
                   </div>
                   <div class="clamp-tool__form-control">
@@ -106,7 +129,7 @@
                     <label for="maxViewportWidth">
                       <strong>Max VW: <span class="vw-unit">px</span></strong>
                       <input
-                      data-viewport-unit="px"
+                        data-viewport-unit="px"
                         id="maxViewPortWidth"
                         type="number"
                         name="maxViewportWidth"
@@ -116,7 +139,7 @@
                       />
                     </label>
                   </div>
-                <div class="clamp-tool__column"></div>
+                  <div class="clamp-tool__column"></div>
                 </div>
               </div>
             </section>
@@ -131,8 +154,7 @@
               </div>
               <h2>Example Output</h2>
               <div class="output-container">
-                <div id="clampExample">
-                </div>
+                <div id="clampExample"></div>
               </div>
             </section>
           </form>
@@ -141,7 +163,6 @@
       </div>
       <!--/main-content -->
     </div>
-    <script type="module" src="index.js">
-    </script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

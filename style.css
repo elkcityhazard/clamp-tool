@@ -104,7 +104,7 @@ dialog > button:hover {
 .container .row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  place-items: center;
+  place-items: stretch center;
 }
 
 .container .row .column {
@@ -161,41 +161,23 @@ section.output {
   padding: 0.5rem;
 }
 
+.clamp-tool__form-control {
+  margin-bottom: 0.5rem;
+}
+
 strong,
 label span {
   display: inline-block;
   font-size: clamp(0.5rem, 0.5714rem + 0.5357vw, 0.667rem);
-  font-weight:900;
+  font-weight: 900;
   line-height: 1.5;
   margin-bottom: 0.1rem;
 }
-
-
 
 input,
 label {
   max-width: 100%;
 }
-
-/* input[type="checkbox"] {
-    position: relative;
-    z-index: -1;
-}
-
-input[type="checkbox"]::before,
-input[type="checkbox"]::after {
-    background: pink;
-    border: 1px solid black;
-    content: 'hi';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 400px; 
-    height: 400px;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-} */
 
 input,
 button {

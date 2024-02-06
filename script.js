@@ -295,13 +295,14 @@ class ClampTool {
   }
 
   convertRemToPx(remValue) {
-    return remValue * this.baseFontSizeValue;
+    let val = remValue * this.baseFontSizeValue;
+    return parseInt(val);
   }
 
   convertPxToRem(pxValue) {
     let remValue = pxValue / this.baseFontSizeValue;
 
-    return remValue;
+    return parseFloat(remValue.toFixed(2));
   }
 
   calculateSlope() {
