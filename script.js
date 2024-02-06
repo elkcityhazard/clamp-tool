@@ -203,7 +203,7 @@ class ClampTool {
         ? (el.previousElementSibling.querySelector("span").innerText = "px")
         : (el.previousElementSibling.querySelector("span").innerText = "rem");
 
-      let event = new Event("change", {
+      let triggerUpdateEvent = new Event("change", {
         bubbles: true,
         cancelable: true,
       });
@@ -214,7 +214,7 @@ class ClampTool {
         el.value = this.convertPxToRem(el.value);
       }
 
-      el.dispatchEvent(event);
+      el.dispatchEvent(triggerUpdateEvent);
 
       e.target.checked
         ? (e.target.nextElementSibling.innerText = "rem")
@@ -236,11 +236,11 @@ class ClampTool {
       el.dataset.viewportUnit === "px"
         ? (el.previousElementSibling.querySelector("span").innerText = "px")
         : (el.previousElementSibling.querySelector("span").innerText = "rem");
-      let event = new Event("change", {
+      let triggerUpdateEvent = new Event("change", {
         bubbles: true,
         cancelable: true,
       });
-      el.dispatchEvent(event);
+      el.dispatchEvent(triggerUpdateEvent);
     });
     e.target.checked
       ? (e.target.nextElementSibling.innerText = "rem")
@@ -278,7 +278,7 @@ class ClampTool {
   handleBaseUnitChange(e) {
     const root = document.documentElement;
 
-    root.style.setProperty("--base-font-size", `${this.remBaseUnitValue}px`);
+    root.style.setProperty("--base-font-size", `${e.target.value}px`);
 
     this.baseFontSizeValue = e.target.value;
 

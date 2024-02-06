@@ -34,6 +34,7 @@ body {
   background: #000;
   color: white;
   padding: 8px;
+  visibility: hidden;
   z-index: 100;
 }
 
@@ -144,7 +145,7 @@ section.output {
   margin-left: auto;
   margin-right: -1px;
   height: calc(var(--base-font-size) * 4);
-  min-width: 100px;
+  min-width: 125px;
   text-shadow: 0 1px 0 var(--chocolate-cosmos);
 }
 
@@ -160,11 +161,16 @@ section.output {
   padding: 0.5rem;
 }
 
-strong {
+strong,
+label span {
   display: inline-block;
-  font-size: clamp(0.6667rem, 0.5714rem + 0.5357vw, 1rem);
+  font-size: clamp(0.5rem, 0.5714rem + 0.5357vw, 0.667rem);
+  font-weight:900;
+  line-height: 1.5;
   margin-bottom: 0.1rem;
 }
+
+
 
 input,
 label {
