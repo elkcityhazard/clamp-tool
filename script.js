@@ -215,7 +215,7 @@ class ClampTool {
     
               this.fontsizeCopyID.dispatchEvent(fontSizeClickEvent);
     
-              await this.copyTextToClipboard(this.clampResult.innerText);
+              await this.copyTextToClipboard(this.clampResult.innerText + ' ' + this.fontSizeResult.innerText);
     
               this.toggleCheckMark(clampClickEvent, true);
     
