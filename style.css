@@ -338,6 +338,12 @@ ul.instructions {
   width: fit-content;
   text-align: left;
   text-transform: none;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 250ms ease;
+  -moz-transition: height 250ms ease;
+  transition: height 250ms ease;
+
 }
 
 ul.instructions li {
@@ -351,4 +357,27 @@ kbd {
   font-weight: 700;
   padding: 0.2rem 0.5rem;
   border-radius: 0.5rem;
+}
+
+button.toggle {
+  aspect-ratio: 1/1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 2px 0 20px -13px #000;
+  background: var(--dark-slate-gray);
+  color: var(--white);
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  height: 30;
+  width: 30;
+  padding: 5px;
+  margin: 0;
+  transform: rotateZ(225deg);
+}
+
+button.toggle.rotate-0 {
+  transform: rotateZ(0deg);
 }

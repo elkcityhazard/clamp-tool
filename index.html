@@ -27,8 +27,9 @@
       <header class="main-header">
         <h1>CSS Clamp Tool</h1>
         <p>By Andrew McCall</p>
-        <ul class="instructions">
-          <h2 class="instructions">Clamp Tool Commands</h2>
+        <h2 class="instructions">Clamp Tool Commands <button id="trigger" class="toggle" data-active="true">&times;</button></h2>
+        <ul id="instructionBox" class="instructions" aria-controlledby="trigger'">
+          
           <li><kbd>Enter</kbd> In Focused Field: update all values</li>
           <li><kbd>Esc</kbd> reset all values</li>
           <li><kbd>Ctrl+C</kbd> copy both clamp fields to clipboard</li>

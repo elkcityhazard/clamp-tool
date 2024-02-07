@@ -229,6 +229,34 @@ class ClampTool {
       }
     });
 
+    document.querySelector("button[data-active]").addEventListener('click', e => {
+      const instructions = document.getElementById("instructionBox")
+
+
+      let active = e.target.dataset.active
+
+      let activeBool
+
+      if (active === 'true') {
+        activeBool = true
+      } else {
+        activeBool = false
+      }
+
+      activeBool ? e.target.dataset.active = 'false' : e.target.dataset.active = 'true'
+
+      activeBool ? e.target.classList.add('rotate-0') : e.target.classList.remove('rotate-0')
+
+      activeBool ? instructions.setAttribute('aria-hidden', 'false') : instructions.setAttribute('aria-hidden', 'true')
+      activeBool ? instructions.setAttribute('aria-expanded', 'true') : instructions.setAttribute('aria-expanded', 'false')
+
+      activeBool ? instructions.style.height = instructions.scrollHeight + 'px' : instructions.style.height = 0
+
+      
+
+      
+    })
+
     this.update();
   }
 
