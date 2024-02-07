@@ -103,14 +103,32 @@ dialog > button:hover {
 
 .container .row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin: auto;
+  max-width: 768px;
   place-items: stretch center;
 }
 
 .container .row .column {
-  max-width: 50%;
+  max-width: 50%
 }
 
+.container .row .column:nth-child(2n) {
+  position: relative;
+}
+
+.container .row .column:nth-child(2n+1)::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--chocolate-cosmos);
+  width: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+
+}
 section.output {
   max-width: 720px;
   margin: auto;
@@ -208,6 +226,20 @@ button {
   transition: all 250ms ease;
 }
 
+button span {
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight:700;
+  -moz-transition: all 250ms ease;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+
+button:hover > span,
+button:active >span {
+  transform: translateX(0.2rem);
+}
+
 input:focus,
 input:active,
 input:focus-within {
@@ -244,4 +276,79 @@ input:focus-within {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.checkbox {
+  background: transparent;
+  border-radius: 50%;
+  display: none;
+  margin: auto;
+  stroke-dasharray: 49; /* Adjust according to the length of your checkmark path */
+  stroke-dashoffset: 49; /* Same as stroke-dasharray */
+  transition: all 0.3s ease;
+}
+
+.checkbox.show {
+  display: block;
+  opacity: 1;
+  -webkit-transition: all 250ms ease;
+  -moz-transition: all 250ms ease;
+  transition:all 250ms ease;
+}
+
+.checkbox.show .checkmark {
+  animation: draw 0.5s ease forwards;
+}
+
+@keyframes draw {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark {
+  transition: stroke-dashoffset 0.5s ease;
+  
+  stroke: var(--dark-slate-gray);
+}
+
+
+
+.d-none {
+  display: none;
+}
+
+.opacity-0 {
+  opacity: 0;
+  -webkit-transition: all 250ms ease;
+  -moz-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+
+
+h2.instructions {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+ul.instructions {
+  margin: 1rem auto;
+  width: fit-content;
+  text-align: left;
+  text-transform: none;
+}
+
+ul.instructions li {
+  font-size: clamp(0.67rem, 0.5832rem + 0.6252vw, 1rem);
+  margin-bottom: 0.5rem;
+}
+
+kbd {
+  background: var(--dark-slate-gray);
+  color: var(--white);
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
 }

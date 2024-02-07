@@ -116,7 +116,79 @@ class ClampTool {
     this.dialogCloseBtn.addEventListener("click", this.closeDialog.bind(this));
     this.dialogID.close();
 
+    this.form.addEventListener('keydown', async (e) => {
+      try {
+
+        switch (e.key) {
+          case 'Enter':
+            e.preventDefault();
+
+            let updateEVent = new Event('change', {
+              bubbles: true,
+              cancelable: true,
+              
+            })
+            e.target.dispatchEvent(updateEVent)
+            
+            
+            break
+          case 'Escape':
+  
+            // reset form vals
+            this.targetFontUnit.checked = false
+            this.targetVwUnit.checked = false
+            this.remBaseUnit.value = 18
+            this.minFontSize.value = 18
+            this.maxFontSize.value = 36
+            this.minViewPort.value = 320
+            this.maxViewPort.value = 840
+            this.update()
+            break
+            // handle control c
+          case 'c':
+            if ('ctrl') {
+  
+              
+              let clampClickEvent= new Event('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+              })
+
+              let fontSizeClickEvent = new Event('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+              })
+              this.clampCopyID.dispatchEvent(clampClickEvent)
+
+              this.fontsizeCopyID.dispatchEvent(fontSizeClickEvent)
+  
+              await this.copyTextToClipboard(this.clampResult.innerText)
+
+              this.toggleCheckMark(clampClickEvent, true)
+
+              this.toggleCheckMark(fontSizeClickEvent, true)
+
+              
+            }
+            break
+  
+      }
+
+      } catch (err) {
+        console.error(err.message)
+        throw new Error(err)
+
+      }
+  })
+
     this.update();
+
+    
+
+
+    
   }
 
   /**
@@ -155,9 +227,10 @@ class ClampTool {
    * @param {type} text - description of parameter
    * @return {type}
    */
-  updateDialogText(text) {
+  updateDialogText(e, text) {
     this.dialogID.querySelector("#dialogText").innerText =
       this.clampResult.innerText + text;
+      e.target.closest('svg').classList.add(show)
   }
 
   /**
@@ -168,26 +241,64 @@ class ClampTool {
   async copyTextToClipboard(text) {
     try {
       await navigator.clipboard.writeText(text);
-      this.openDialog();
-      this.updateDialogText("has been copied to clipboard!");
+      return true
+      
     } catch (err) {
-      this.openDialog();
-      this.updateDialogText("failed to copy the code.");
+      return false
     }
+  }
+
+
+  toggleCheckMark(e, bool) {
+
+    const button = e.target.closest('button')
+      const span = button.querySelector('span')
+      const check = button.querySelector('.checkbox')
+      bool ? span.classList.add('d-none') : span.classList.remove('d-none')
+      bool ? check.classList.add('show') : check.classList.remove('show')
+
+      new Promise((resolve) => setTimeout(resolve, 3000))
+      .then(() => {
+        this.resetCopyButtons()
+      })
+
+
   }
 
   /**
    * A description of the entire function.
    */
-  copyClampValue() {
-    this.copyTextToClipboard(this.clampResult.innerText);
+  async copyClampValue(e) {
+
+    try {
+
+    const clipboardOperationResult = await this.copyTextToClipboard(this.clampResult.innerText);
+
+    this.toggleCheckMark(e, clipboardOperationResult)
+
+   
+    } catch (err) {
+      console.error(err.message)
+      throw new Error(err)
+    }
+    
   }
 
   /**
    * Copies the font size value to the clipboard.
    */
-  copyFontSizeValue() {
-    this.copyTextToClipboard(this.fontSizeResult.innerText);
+  async copyFontSizeValue(e) {
+    try {
+
+      const clipboardOperationResult = await this.copyTextToClipboard(this.fontSizeResult.innerText);
+
+    this.toggleCheckMark(e, clipboardOperationResult)
+
+    } catch (err) {
+      console.error(err.message)
+      throw new Error(err)
+    }
+    
   }
 
   handleTargetFontValueChange(e) {
@@ -463,7 +574,36 @@ class ClampTool {
     xhr.send();
   }
 
+
+  /**
+   * Resets the state of the copy buttons by hiding the checkboxes and showing the spans.
+   */
+  resetCopyButtons() {
+
+    const checkboxes = document.querySelectorAll('.checkbox')
+    const spans = document.querySelectorAll('button span')
+
+    checkboxes.forEach(checkbox => {
+      checkbox.classList.remove('show')
+      checkbox.classList.add('d-none')
+    })
+
+    spans.forEach(span => {
+      span.classList.remove('d-none')
+      
+
+      
+
+
+    })
+    
+
+   
+  
+  }
+
   update() {
+    this.resetCopyButtons()
     this.constructClampValue();
     this.displayClampValue();
   }

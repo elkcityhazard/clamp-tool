@@ -27,6 +27,13 @@
       <header class="main-header">
         <h1>CSS Clamp Tool</h1>
         <p>By Andrew McCall</p>
+        <ul class="instructions">
+          <h2 class="instructions">Clamp Tool Commands</h2>
+          <li><kbd>Enter</kbd> In Focused Field: update all values</li>
+          <li><kbd>Esc</kbd> in focused field: reset all values</li>
+          <li><kbd>Ctrl+C</kbd> in focused field: copy the current clamp to clipboard</li>
+        </ul>
+        
       </header>
       <!--/header -->
       <!-- main-content -->
@@ -146,11 +153,21 @@
             <section class="output">
               <div class="output-container">
                 <code id="clampResult"></code>
-                <button id="clampCopy">Copy</button>
+                <button id="clampCopy"><span>Copy</span>
+                  <svg class="checkbox" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                    <path class="checkmark" fill="none" stroke="#00BFFF" stroke-width="4" 
+                          d="M5 25 l10 10 l20 -20" />
+                  </svg>
+                </button>
               </div>
               <div class="output-container">
                 <code id="fontSizeResult"></code>
-                <button id="fontSizeCopy">Copy</button>
+                <button id="fontSizeCopy"><span>Copy</span>
+                  <svg class="checkbox" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                    <path class="checkmark" fill="none" stroke="#00BFFF" stroke-width="4" 
+                          d="M5 25 l10 10 l20 -20" />
+                  </svg>
+                </button>
               </div>
               <h2>Example Output</h2>
               <div class="output-container">
