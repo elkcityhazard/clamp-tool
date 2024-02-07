@@ -123,12 +123,12 @@ class ClampTool {
           case 'Enter':
             e.preventDefault();
 
-            let updateEVent = new Event('change', {
+            let updateEvent = new Event('change', {
               bubbles: true,
               cancelable: true,
               
             })
-            e.target.dispatchEvent(updateEVent)
+            e.target.dispatchEvent(updateEvent)
             
             
             break
