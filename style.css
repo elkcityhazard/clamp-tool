@@ -151,7 +151,8 @@ section.output {
 }
 
 .output-container code {
-  font-size: clamp(0.75rem, 0.1875rem + 2.8125vw, 1.25rem);
+  font-size: clamp(0.73rem, 0.6674rem + 0.5515vw, 0.91rem);
+  font-weight: 700;
   margin-bottom: calc(var(--base-font-size) * 0.25);
   padding: calc(var(--base-font-size) * 0.33);
   position: relative;

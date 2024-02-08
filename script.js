@@ -116,7 +116,7 @@ class ClampTool {
     this.dialogCloseBtn.addEventListener("click", this.closeDialog.bind(this));
     this.dialogID.close();
 
-    this.form.addEventListener("keydown", async (e) => {
+    this.form.addEventListener("keydown", async function(e) {
       try {
         switch (e.key) {
           case "Enter":
@@ -131,14 +131,7 @@ class ClampTool {
             break;
           case "Escape":
             // reset form vals
-            this.targetFontUnit.checked = false;
-            this.targetVwUnit.checked = false;
-            this.remBaseUnit.value = 18;
-            this.minFontSize.value = 18;
-            this.maxFontSize.value = 36;
-            this.minViewPort.value = 320;
-            this.maxViewPort.value = 840;
-            this.update();
+            this.resetValues()
             break;
           // handle control c
           case "c":
@@ -170,7 +163,7 @@ class ClampTool {
         console.error(err.message);
         throw new Error(err);
       }
-    });
+    }.bind(this));
 
     document.addEventListener("keydown", async (e) => {
       try {
@@ -188,14 +181,9 @@ class ClampTool {
             break;
           case "Escape":
             // reset form vals
-            this.targetFontUnit.checked = false;
-            this.targetVwUnit.checked = false;
-            this.remBaseUnit.value = 18;
-            this.minFontSize.value = 18;
-            this.maxFontSize.value = 36;
-            this.minViewPort.value = 320;
-            this.maxViewPort.value = 840;
-            this.update();
+            
+            this.resetValues()
+            
             break;
           // handle control c
           case "c":
@@ -258,6 +246,35 @@ class ClampTool {
     })
 
     this.update();
+  }
+
+
+  resetValues() {
+    this.targetFontUnit.checked = false;
+            this.targetVwUnit.checked = false;
+            this.targetFontUnitValue = "px";
+            this.targetVwUnitValue = "px";
+            this.remBaseUnit.value = 18;
+            this.minFontSize.value = 18;
+            this.maxFontSize.value = 36;
+            this.minViewPort.value = 320;
+            this.maxViewPort.value = 840;
+
+            const resetEvent = new Event("change", {
+              bubbles: false,
+              cancelable: false,
+            })
+
+            this.targetFontUnit.dispatchEvent(resetEvent);
+            this.targetVwUnit.dispatchEvent(resetEvent);
+            this.remBaseUnit.dispatchEvent(resetEvent);
+            this.minFontSize.dispatchEvent(resetEvent);
+            this.maxFontSize.dispatchEvent(resetEvent);
+            this.minViewPort.dispatchEvent(resetEvent);
+            this.maxViewPort.dispatchEvent(resetEvent);
+
+
+            this.update();
   }
 
   /**
@@ -446,10 +463,6 @@ class ClampTool {
   }
 
   handleBaseUnitChange(e) {
-    const root = document.documentElement;
-
-    root.style.setProperty("--base-font-size", `${e.target.value}px`);
-
     this.baseFontSizeValue = e.target.value;
 
     this.update();
@@ -651,12 +664,14 @@ class ClampTool {
   }
 
   update() {
-    this.resetCopyButtons();
     this.constructClampValue();
     this.displayClampValue();
+    this.resetCopyButtons();
   }
 
-  print() {}
+  print() {
+    console.log(this)
+  }
 }
 
 export default ClampTool;
