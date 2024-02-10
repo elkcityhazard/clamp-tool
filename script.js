@@ -242,6 +242,7 @@ class ClampTool {
   }
 
   resetValues() {
+    this.remBaseUnit.value = 18
     this.minFontSize.value = this.defaultValues.minFontSize
     this.maxFontSize.value = this.defaultValues.maxFontSize
     this.minViewPort.value = this.defaultValues.minViewPort
@@ -251,11 +252,11 @@ class ClampTool {
     this.targetFontUnit.checked = false
     this.targetVwUnit.checked = false
     this.remBaseUnitValue = 18;
-    this.baseFontSizeValue = 18;
-    this.minFontSizeValue = 18;
-    this.maxFontSizeValue = 63;
-    this.minViewPortValue = 360;
-    this.maxViewPortValue = 840;
+    this.baseFontSizeValue = this.defaultValues.baseFontSize
+    this.minFontSizeValue = this.defaultValues.minFontSize;
+    this.maxFontSizeValue = this.defaultValues.maxFontSize;
+    this.minViewPortValue = this.defaultValues.minViewPort;
+    this.maxViewPortValue = this.defaultValues.maxViewPort;
     this.calculateSlope();
     this.update();
 
