@@ -252,8 +252,8 @@ class ClampTool {
     this.baseFontSizeValue = 18;
     this.minFontSizeValue = 18;
     this.maxFontSizeValue = 63;
-    this.minViewPortValue = 20;
-    this.maxViewPortValue = 40;
+    this.minViewPortValue = 360;
+    this.maxViewPortValue = 840;
     this.calculateSlope();
     this.update();
 
