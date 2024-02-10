@@ -73,105 +73,79 @@ class ClampTool {
    * Listens to various events and handles them accordingly.
    */
   events() {
-    this.minFontSize.addEventListener(
-      "change",
-      this.handleMinFontSizeChange.bind(this)
-    );
-    this.maxFontSize.addEventListener(
-      "change",
-      this.handleMaxFontSizeChange.bind(this)
-    );
-    this.minViewPort.addEventListener(
-      "change",
-      this.handleMinViewPortChange.bind(this)
-    );
-    this.maxViewPort.addEventListener(
-      "change",
-      this.handleMaxViewPortChange.bind(this)
-    );
-    this.targetFontUnit.addEventListener(
-      "click",
-      this.handleTargetFontValueChange.bind(this)
-    );
-    this.targetVwUnit.addEventListener(
-      "click",
-      this.handleTargetViewportUnitChange.bind(this)
-    );
-    this.form.addEventListener(
-      "submit",
-      function (e) {
-        e.preventDefault();
-      }.bind(this)
-    );
-    this.remBaseUnit.addEventListener(
-      "change",
-      this.handleBaseUnitChange.bind(this)
-    );
+    this.minFontSize.addEventListener("change",this.handleMinFontSizeChange.bind(this));
+    this.maxFontSize.addEventListener("change",this.handleMaxFontSizeChange.bind(this));
+    this.minViewPort.addEventListener("change",this.handleMinViewPortChange.bind(this));
+    this.maxViewPort.addEventListener("change",this.handleMaxViewPortChange.bind(this));
+    this.targetFontUnit.addEventListener("click",this.handleTargetFontValueChange.bind(this));
+    this.targetVwUnit.addEventListener("click",this.handleTargetViewportUnitChange.bind(this));
+    this.form.addEventListener("submit",function (e) {e.preventDefault();}.bind(this));
+    this.remBaseUnit.addEventListener("change",this.handleBaseUnitChange.bind(this));
     this.clampCopyID.addEventListener("click", this.copyClampValue.bind(this));
-    this.fontsizeCopyID.addEventListener(
-      "click",
-      this.copyFontSizeValue.bind(this)
-    );
+    this.fontsizeCopyID.addEventListener("click",this.copyFontSizeValue.bind(this));
     this.dialogID.addEventListener("click", this.openDialog.bind(this));
     this.dialogCloseBtn.addEventListener("click", this.closeDialog.bind(this));
     this.dialogID.close();
 
-    this.form.addEventListener("keydown", async function(e) {
-      try {
-        switch (e.key) {
-          case "Enter":
-            e.preventDefault();
+    this.form.addEventListener("keydown",
+      async function (e) {
+        try {
+          switch (e.key) {
+            case "Enter":
+              e.preventDefault();
 
-            let updateEvent = new Event("change", {
-              bubbles: true,
-              cancelable: true,
-            });
-            e.target.dispatchEvent(updateEvent);
-
-            break;
-          case "Escape":
-            // reset form vals
-            this.resetValues()
-            break;
-          // handle control c
-          case "c":
-            if ("ctrl") {
-              let clampClickEvent = new Event("click", {
+              let updateEvent = new Event("change", {
                 bubbles: true,
                 cancelable: true,
-                view: window,
               });
+              e.target.dispatchEvent(updateEvent);
 
-              let fontSizeClickEvent = new Event("click", {
-                bubbles: true,
-                cancelable: true,
-                view: window,
-              });
-              this.clampCopyID.dispatchEvent(clampClickEvent);
+              break;
+            case "Escape":
+              // reset form vals
+              this.resetValues();
+              break;
+            // handle control c
+            case "c":
+              if ("ctrl") {
+                let clampClickEvent = new Event("click", {
+                  bubbles: true,
+                  cancelable: true,
+                  view: window,
+                });
 
-              this.fontsizeCopyID.dispatchEvent(fontSizeClickEvent);
+                let fontSizeClickEvent = new Event("click", {
+                  bubbles: true,
+                  cancelable: true,
+                  view: window,
+                });
+                this.clampCopyID.dispatchEvent(clampClickEvent);
 
-              await this.copyTextToClipboard(this.clampResult.innerText);
+                this.fontsizeCopyID.dispatchEvent(fontSizeClickEvent);
 
-              this.toggleCheckMark(clampClickEvent, true);
+                await this.copyTextToClipboard(this.clampResult.innerText);
 
-              this.toggleCheckMark(fontSizeClickEvent, true);
-            }
-            break;
+                this.toggleCheckMark(clampClickEvent, true);
+
+                this.toggleCheckMark(fontSizeClickEvent, true);
+              }
+              break;
+          }
+        } catch (err) {
+          console.error(err.message);
+          throw new Error(err);
         }
-      } catch (err) {
-        console.error(err.message);
-        throw new Error(err);
-      }
-    }.bind(this));
+      }.bind(this)
+    );
 
     document.addEventListener("keydown", async (e) => {
       try {
         switch (e.key) {
           case "Enter":
-            if (document.activeElement === this.inputElement) { // Check if the desired input has focus
+            if (document.activeElement === this.inputElement) {
+              // Check if the desired input has focus
               e.preventDefault();
-    
+
               let updateEvent = new Event("change", {
                 bubbles: true,
                 cancelable: true,
@@ -181,32 +155,35 @@ class ClampTool {
             break;
           case "Escape":
             // reset form vals
-            
-            this.resetValues()
-            
+
+            this.resetValues();
+
             break;
           // handle control c
           case "c":
-            if (e.ctrlKey) { // Ensure Ctrl key is also pressed
+            if (e.ctrlKey) {
+              // Ensure Ctrl key is also pressed
               let clampClickEvent = new Event("click", {
                 bubbles: true,
                 cancelable: true,
                 view: window,
               });
-    
+
               let fontSizeClickEvent = new Event("click", {
                 bubbles: true,
                 cancelable: true,
                 view: window,
               });
               this.clampCopyID.dispatchEvent(clampClickEvent);
-    
+
               this.fontsizeCopyID.dispatchEvent(fontSizeClickEvent);
-    
-              await this.copyTextToClipboard(this.clampResult.innerText + ' ' + this.fontSizeResult.innerText);
-    
+
+              await this.copyTextToClipboard(
+                this.clampResult.innerText + " " + this.fontSizeResult.innerText
+              );
+
               this.toggleCheckMark(clampClickEvent, true);
-    
+
               this.toggleCheckMark(fontSizeClickEvent, true);
             }
             break;
@@ -217,53 +194,56 @@ class ClampTool {
       }
     });
 
-    document.querySelector("button[data-active]").addEventListener('click', e => {
-      const instructions = document.getElementById("instructionBox")
+    document
+      .querySelector("button[data-active]")
+      .addEventListener("click", (e) => {
+        const instructions = document.getElementById("instructionBox");
 
+        let active = e.target.dataset.active;
 
-      let active = e.target.dataset.active
+        let activeBool;
 
-      let activeBool
+        if (active === "true") {
+          activeBool = true;
+        } else {
+          activeBool = false;
+        }
 
-      if (active === 'true') {
-        activeBool = true
-      } else {
-        activeBool = false
-      }
+        activeBool
+          ? (e.target.dataset.active = "false")
+          : (e.target.dataset.active = "true");
 
-      activeBool ? e.target.dataset.active = 'false' : e.target.dataset.active = 'true'
+        activeBool
+          ? e.target.classList.add("rotate-0")
+          : e.target.classList.remove("rotate-0");
 
-      activeBool ? e.target.classList.add('rotate-0') : e.target.classList.remove('rotate-0')
+        activeBool
+          ? instructions.setAttribute("aria-hidden", "false")
+          : instructions.setAttribute("aria-hidden", "true");
+        activeBool
+          ? instructions.setAttribute("aria-expanded", "true")
+          : instructions.setAttribute("aria-expanded", "false");
 
-      activeBool ? instructions.setAttribute('aria-hidden', 'false') : instructions.setAttribute('aria-hidden', 'true')
-      activeBool ? instructions.setAttribute('aria-expanded', 'true') : instructions.setAttribute('aria-expanded', 'false')
-
-      activeBool ? instructions.style.height = instructions.scrollHeight + 'px' : instructions.style.height = 0
-
-      
-
-      
-    })
+        activeBool
+          ? (instructions.style.height = instructions.scrollHeight + "px")
+          : (instructions.style.height = 0);
+      });
 
     this.update();
   }
 
-
   resetValues() {
-            this.targetFontUnit.checked = true;
-            this.targetVwUnit.checked = true;
-            this.targetFontUnitValue = "px";
-            this.targetVwUnitValue = "px";
-            this.remBaseUnit.value = 18;
-            this.minFontSize.value = 18;
-            this.maxFontSize.value = 36;
-            this.minViewPort.value = 320;
-            this.maxViewPort.value = 840;
+    this.targetFontUnit.checked = true;
+    this.targetVwUnit.checked = true;
+    this.targetFontUnitValue = "px";
+    this.targetVwUnitValue = "px";
+    this.remBaseUnit.value = 18;
+    this.minFontSize.value = 18;
+    this.maxFontSize.value = 36;
+    this.minViewPort.value = 320;
+    this.maxViewPort.value = 840;
 
-           window.location.reload()
-
-            
-           
+    window.location.reload();
   }
 
   /**
@@ -658,9 +638,7 @@ class ClampTool {
     this.resetCopyButtons();
   }
 
-  print() {
-    
-  }
+  print() {}
 }
 
 export default ClampTool;
