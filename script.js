@@ -59,6 +59,15 @@ class ClampTool {
     this.maxViewPortValue = +this.maxViewPort.value || 0;
     this.remBaseUnitValue = +this.remBaseUnit.value || 0;
     this.targetVwUnitValue = this.targetVwUnit.checked ? "rem" : "px";
+    this.defaultValues = {
+      minFontSize: +this.minFontSizeValue,
+      maxFontSize: +this.maxFontSizeValue,
+      minViewPort: +this.minViewPortValue,
+      maxViewPort: +this.maxViewPortValue,
+      targetFontUnit: this.targetFontUnitValue,
+      targetVwUnit: this.targetVwUnitValue,
+      remBaseUnit: this.remBaseUnitValue,
+    }
     this.slope = 0;
     this.yAxisIntersection = 0;
     this.preferredValue = null;
@@ -233,6 +242,21 @@ class ClampTool {
   }
 
   resetValues() {
+    this.minFontSize.value = this.defaultValues.minFontSize
+    this.maxFontSize.value = this.defaultValues.maxFontSize
+    this.minViewPort.value = this.defaultValues.minViewPort
+    this.maxViewPort.value = this.defaultValues.maxViewPort
+    this.targetFontUnit.value = this.defaultValues.targetFontUnit
+    this.targetVwUnit.value = this.defaultValues.targetVwUnit
+    this.remBaseUnitValue = 18;
+    this.baseFontSizeValue = 18;
+    this.minFontSizeValue = 18;
+    this.maxFontSizeValue = 63;
+    this.minViewPortValue = 20;
+    this.maxViewPortValue = 40;
+    this.calculateSlope();
+    this.update();
+
     window.location.reload();
   }
 
