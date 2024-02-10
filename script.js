@@ -233,16 +233,6 @@ class ClampTool {
   }
 
   resetValues() {
-    this.targetFontUnit.checked = true;
-    this.targetVwUnit.checked = true;
-    this.targetFontUnitValue = "px";
-    this.targetVwUnitValue = "px";
-    this.remBaseUnit.value = 18;
-    this.minFontSize.value = 18;
-    this.maxFontSize.value = 36;
-    this.minViewPort.value = 320;
-    this.maxViewPort.value = 840;
-
     window.location.reload();
   }
 
