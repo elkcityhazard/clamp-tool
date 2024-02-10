@@ -248,6 +248,8 @@ class ClampTool {
     this.maxViewPort.value = this.defaultValues.maxViewPort
     this.targetFontUnit.value = this.defaultValues.targetFontUnit
     this.targetVwUnit.value = this.defaultValues.targetVwUnit
+    this.targetFontUnit.checked = false
+    this.targetVwUnit.checked = false
     this.remBaseUnitValue = 18;
     this.baseFontSizeValue = 18;
     this.minFontSizeValue = 18;
