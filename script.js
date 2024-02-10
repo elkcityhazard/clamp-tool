@@ -250,8 +250,8 @@ class ClampTool {
 
 
   resetValues() {
-    this.targetFontUnit.checked = false;
-            this.targetVwUnit.checked = false;
+            this.targetFontUnit.checked = true;
+            this.targetVwUnit.checked = true;
             this.targetFontUnitValue = "px";
             this.targetVwUnitValue = "px";
             this.remBaseUnit.value = 18;
@@ -260,21 +260,10 @@ class ClampTool {
             this.minViewPort.value = 320;
             this.maxViewPort.value = 840;
 
-            const resetEvent = new Event("change", {
-              bubbles: false,
-              cancelable: false,
-            })
+           window.location.reload()
 
-            this.targetFontUnit.dispatchEvent(resetEvent);
-            this.targetVwUnit.dispatchEvent(resetEvent);
-            this.remBaseUnit.dispatchEvent(resetEvent);
-            this.minFontSize.dispatchEvent(resetEvent);
-            this.maxFontSize.dispatchEvent(resetEvent);
-            this.minViewPort.dispatchEvent(resetEvent);
-            this.maxViewPort.dispatchEvent(resetEvent);
-
-
-            this.update();
+            
+           
   }
 
   /**
@@ -670,7 +659,7 @@ class ClampTool {
   }
 
   print() {
-    console.log(this)
+    
   }
 }
 
